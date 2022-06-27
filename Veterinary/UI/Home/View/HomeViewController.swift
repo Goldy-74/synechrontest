@@ -32,30 +32,31 @@ extension HomeViewController {
         self.addViewModelSubscribers()
         self.callWebServiceForGetConfiguration()
     }
-        
+    
     private func addViewModelSubscribers(){
         
         self.viewModel = HomeViewModel()
         
         self.viewModel?.arrPets.bind(listener: { [weak self] pets in
+            SharedApp.shared.hideLoader()
             if let arrPets = pets, !arrPets.isEmpty {
                 self?.tblPetList?.reloadData()
             }
         })
         
         self.viewModel?.configurationSettings.bind(listener: { [weak self] setting in
+            SharedApp.shared.hideLoader()
             if let configSetting = setting{
                 
-                self?.lblOfficeHours?.text = "Working Hours: \(configSetting.workHours)"
+                self?.lblOfficeHours?.text = String(format: MessageConstant.workingHoursPlaceholder.rawValue, "\(configSetting.workHours)")
                 
                 self?.btnChat?.isHidden = !configSetting.isChatEnabled
                 self?.btnCall?.isHidden = !configSetting.isCallEnabled
-
+                
                 self?.callWebServiceForGetPetList()
                 
             }
         })
-//
     }
 }
 
@@ -63,12 +64,12 @@ extension HomeViewController {
 extension HomeViewController {
     
     @IBAction func btnChatAction(_ sender: UIButton){
-        let msg = self.viewModel?.isInWorkingHours() == true ? "Thank you for getting in touch with us. We’ll get back to you as soon as possible" : "Work hours has ended. Please contact us again on the next work day"
+        let msg = self.viewModel?.isInWorkingHours() == true ? MessageConstant.withinWorkingHourDesc.rawValue : MessageConstant.notInWorkingHourDesc.rawValue
         self.showAlertWith(msg)
     }
     
     @IBAction func btnCallAction(_ sender: UIButton){
-        let msg = self.viewModel?.isInWorkingHours() == true ? "Thank you for getting in touch with us. We’ll get back to you as soon as possible" : "Work hours has ended. Please contact us again on the next work day"
+        let msg = self.viewModel?.isInWorkingHours() == true ? MessageConstant.withinWorkingHourDesc.rawValue : MessageConstant.notInWorkingHourDesc.rawValue
         self.showAlertWith(msg)
     }
     
@@ -81,7 +82,7 @@ extension HomeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: PetCell = tableView.dequeueReusableCell(withIdentifier: "PetCell", for: indexPath) as! PetCell
+        let cell: PetCell = tableView.dequeueReusableCell(withIdentifier: PetCell.className, for: indexPath) as! PetCell
         let petData = self.viewModel?.arrPets.value?[indexPath.row]
         cell.data = petData
         return cell
@@ -101,10 +102,12 @@ extension HomeViewController: UITableViewDelegate {
 //MARK:- API Call(s)
 extension HomeViewController {
     private func callWebServiceForGetConfiguration(){
+        SharedApp.shared.showLoader()
         self.viewModel?.callWebServiceForGetConfiguration()
     }
     
     private func callWebServiceForGetPetList(){
+        SharedApp.shared.showLoader()
         self.viewModel?.callWebServiceForGetPetList()
     }
 }

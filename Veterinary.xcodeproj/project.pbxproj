@@ -30,6 +30,7 @@
 		18C3EDF12866F2CA00D0E805 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3EDF02866F2CA00D0E805 /* Date.swift */; };
 		18C3EDF32867084100D0E805 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3EDF22867084100D0E805 /* UIViewController.swift */; };
 		18C3EDF5286709E100D0E805 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3EDF4286709E100D0E805 /* UIView.swift */; };
+		18C3EDF7286A1E7600D0E805 /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3EDF6286A1E7600D0E805 /* StringConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		18C3EDF02866F2CA00D0E805 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		18C3EDF22867084100D0E805 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		18C3EDF4286709E100D0E805 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		18C3EDF6286A1E7600D0E805 /* StringConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +225,7 @@
 			children = (
 				18C3EDD92866CF5100D0E805 /* APIManager.swift */,
 				18C3EDDB2866D20B00D0E805 /* APIConstant.swift */,
+				18C3EDF6286A1E7600D0E805 /* StringConstants.swift */,
 			);
 			path = APIManager;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				18C3EDE32866DB0300D0E805 /* Reachability.swift in Sources */,
 				18C3EDD52866CB5300D0E805 /* ConfigurationModel.swift in Sources */,
 				18C3EDDF2866D59200D0E805 /* PetCell.swift in Sources */,
+				18C3EDF7286A1E7600D0E805 /* StringConstants.swift in Sources */,
 				18C3EDDA2866CF5100D0E805 /* APIManager.swift in Sources */,
 				18C3EDF5286709E100D0E805 /* UIView.swift in Sources */,
 				18C3EDEE2866EBB200D0E805 /* Loader.swift in Sources */,

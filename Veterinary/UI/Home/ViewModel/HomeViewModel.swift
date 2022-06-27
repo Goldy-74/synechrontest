@@ -15,12 +15,12 @@ class HomeViewModel {
 }
 
 extension HomeViewModel {
-    func isInWorkingHours() -> Bool{
+    func isInWorkingHours(currentDate: Date? = Date().localDate()) -> Bool{
         
         let workingHours = configurationSettings.value?.workHours ?? ""
         
-        let currentDate = Date().localDate()
         let arrAvailbleTime = workingHours.components(separatedBy: " ").filter({$0.contains(":")})
+        
         let initialTime = arrAvailbleTime.first
         let initialHour: Int = Int(initialTime?.components(separatedBy: ":").first ?? "0") ?? 0
         let initialMin: Int = Int(initialTime?.components(separatedBy: ":").last ?? "0") ?? 0
@@ -30,8 +30,8 @@ extension HomeViewModel {
         let endMin = Int(endTime?.components(separatedBy: ":").last ?? "0") ?? 0
 
         
-        if let initialDate = currentDate.setTime(hour: initialHour, min: initialMin), let endDate = currentDate.setTime(hour: endHour, min: endMin){
-            return currentDate.isBetween(initialDate, and: endDate)
+        if let initialDate = currentDate?.setTime(hour: initialHour, min: initialMin), let endDate = currentDate?.setTime(hour: endHour, min: endMin){
+            return currentDate?.isBetween(initialDate, and: endDate) ?? false
         }
         
         return false
@@ -43,9 +43,9 @@ extension HomeViewModel {
     
     //Getting Pet List
     func callWebServiceForGetPetList() {
-        SharedApp.shared.showLoader()
+        
         APIManager.shared.callService(endPoint: .getPets) {[weak self] (response: PetResponseModel) in
-            SharedApp.shared.hideLoader()
+            
             DispatchQueue.main.async { [weak self] in
                 self?.arrPets.value = response.pets
             }
@@ -59,9 +59,9 @@ extension HomeViewModel {
     
     //Getting Configuration
     func callWebServiceForGetConfiguration() {
-        SharedApp.shared.showLoader()
+        
         APIManager.shared.callService(endPoint: .getConfiguration) {[weak self] (response: Configuration) in
-            SharedApp.shared.hideLoader()
+            
             DispatchQueue.main.async { [weak self] in
                 self?.configurationSettings.value = response.settings
             }

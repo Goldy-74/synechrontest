@@ -37,10 +37,14 @@ public class LoadingOverlay {
     }
 
     public func showOverlay(view: UIView) {
-        overlayView.center = view.center
-        view.addSubview(overlayView)
-        activityIndicator.startAnimating()
-        view.isUserInteractionEnabled = false
+        DispatchQueue.main.async {[weak self] in
+            if let overlayView = self?.overlayView{
+                overlayView.center = view.center
+                view.addSubview(overlayView)
+                self?.activityIndicator.startAnimating()
+                view.isUserInteractionEnabled = false
+            }
+        }
     }
 
     public func hideOverlayView() {
